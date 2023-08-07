@@ -1,0 +1,177 @@
+from sklearn import datasets
+from sklearn import metrics
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
+a = datasets.load_iris()
+b = []
+c = []
+d = []
+b1 = []
+b2 = []
+b3 = []
+b4 = []
+c1 = []
+c2 = []
+c3 = []
+c4 = []
+d1 = []
+d2 = []
+d3 = []
+d4 = []
+y = a["data"]
+y1 = a["data"][:,3:]
+e = []
+h = []
+k = []
+h1 = []
+x1 = (a["target"] == 0).astype(int)
+x2 = (a["target"] == 1).astype(int)
+x3 = (a["target"] == 2).astype(int)
+f = LogisticRegression()
+f.fit(y,x1)
+f.score(y,x1)
+f1 = LogisticRegression()
+f1.fit(y,x1)
+p = LogisticRegression()
+p.fit(y1,x3)
+p1 = LogisticRegression()
+p1.fit(y1,x2)
+p2 = LogisticRegression()
+p2.fit(y1,x1)
+for i in range(len(y)):
+    e.append(f.predict_proba([y[i]]))
+for i in range(len(y)):
+    k.append(f.predict([y[i]]))
+for i in range(len(e)):
+    h.append(e[i][0][0])
+for i in range(len(e)):
+    h1.append(e[i][0][1])
+print(e)
+print(h)
+print(y1)
+print(k)
+
+"""print(a)
+print(a["data"])"""
+#print((a["target"] == 0).astype(int))
+for i in range(len(a["target"])):
+    if a["target"][i] == 0:#setosa
+        b.append(a["target"][i])
+        b1.append(a["data"][i][0])#sepal length
+        b2.append(a["data"][i][1])#sepal width
+        b3.append(a["data"][i][2])#petal length
+        b4.append(a["data"][i][3])#petal width
+    if a["target"][i] == 1:#versicolor
+        c.append(a["target"][i])
+        c1.append(a["data"][i][0])#sepal length
+        c2.append(a["data"][i][1])#sepal width
+        c3.append(a["data"][i][2])#petal length
+        c4.append(a["data"][i][3])#petal width
+    if a["target"][i] == 2:#virginica
+        d.append(a["target"][i])
+        d1.append(a["data"][i][0])#sepal length
+        d2.append(a["data"][i][1])#sepal width
+        d3.append(a["data"][i][2])#petal length
+        d4.append(a["data"][i][3])#petal width
+"""print(len(b))
+print(len(c))
+print(len(d))
+print(b1)
+print(b2)
+print(b3)
+print(b4)"""
+print(b4)
+print(h[0:50])
+plt.xlabel("sepal length")
+plt.ylabel("sepal width")
+plt.scatter(b1,b2)
+plt.scatter(c1,c2)
+plt.scatter(d1,d2)
+plt.grid(True)
+plt.show()
+plt.xlabel("sepal length")
+plt.ylabel("petal width")
+plt.scatter(b1,b4)
+plt.scatter(c1,c4)
+plt.scatter(d1,d4)
+plt.grid(True)
+plt.show()
+plt.xlabel("sepal length")
+plt.ylabel("petal length")
+plt.scatter(b1,b3)
+plt.scatter(c1,c3)
+plt.scatter(d1,d3)
+plt.grid(True)
+plt.show()
+plt.xlabel("sepal width")
+plt.ylabel("petal length")
+plt.scatter(b2,b3)
+plt.scatter(c2,c3)
+plt.scatter(d2,d3)
+plt.grid(True)
+plt.show()
+plt.xlabel("sepal width")
+plt.ylabel("petal width")
+plt.scatter(b2,b4)
+plt.scatter(c2,c4)
+plt.scatter(d2,d4)
+plt.grid(True)
+plt.show()
+plt.xlabel("petal length")
+plt.ylabel("petal width")
+plt.scatter(b3,b4)
+plt.scatter(c3,c4)
+plt.scatter(d3,d4)
+plt.grid(True)
+plt.show()
+plt.scatter(h[50:100],b4,label="setosa",marker="o" )
+plt.scatter(h[50:100],c4,label="versicolor",marker="o")
+plt.scatter(h[50:100],d4,label="virginica",marker="o")
+plt.xlabel("probability predicted of h[50:100]")
+plt.ylabel("petal width")
+plt.legend(bbox_to_anchor = (1.05,1.0), loc = "upper left")
+plt.show()
+plt.scatter(h[50:100],b3,label="setosa",marker="o")
+plt.scatter(h[50:100],c3,label="versicolor",marker="o")
+plt.scatter(h[50:100],d3,label="virginica",marker="o")
+plt.xlabel("probability predicted of h[50:100]")
+plt.ylabel("petal length")
+plt.legend(bbox_to_anchor = (1.05,1.0), loc = "upper left")
+plt.show()
+plt.scatter(h[100:150],b2,label="setosa",marker="o")
+plt.scatter(h[100:150],c2,label="versicolor",marker="o")
+plt.scatter(h[100:150],d2,label="virginica",marker="o")
+plt.xlabel("probability predicted of h[100:150]")
+plt.ylabel("sepal width")
+plt.legend(bbox_to_anchor = (1.05,1.0), loc = "upper left")
+plt.show()
+plt.scatter(h[100:150],b1,label="setosa",marker="o")
+plt.scatter(h[100:150],c1,label="versicolor",marker="o")
+plt.scatter(h[100:150],d1,label="virginica",marker="o")
+plt.xlabel("probability predicted of h[100:150]")
+plt.ylabel("sepal length")
+plt.legend(bbox_to_anchor = (1.05,1.0), loc = "upper left")
+plt.show()
+plt.title("petal width vs versicolor")
+l1 = np.linspace(0,3,600).reshape(-1,1)
+o1 = p1.predict_proba(l)
+plt.plot(l1,o1[:,1],color = "orange")
+plt.xlabel("value from 0 to 3")
+plt.ylabel("probability of 1")
+plt.show()
+plt.title("petal width vs setosa")
+l2 = np.linspace(0,3,600).reshape(-1,1)
+o2 = p2.predict_proba(l)
+plt.plot(l2,o2[:,0])
+plt.xlabel("value from 0 to 3")
+plt.ylabel("probability of 1")
+plt.show()
+plt.title("petal width vs virginica")
+l = np.linspace(0,3,600).reshape(-1,1)
+o = p.predict_proba(l)
+plt.plot(l,o[:,1],color = "green")
+plt.xlabel("value from 0 to 3")
+plt.ylabel("probability of 1")
+plt.show()
+
